@@ -19,7 +19,8 @@
             padding: 0;
             width: 100%;
             height: 100%;
-            overflow: hidden;
+            overflow-x: hidden;
+            overflow-y: hidden; /* Locked until animation finishes */
             background-color: #050505;
             font-family: 'Impact', 'Arial Black', sans-serif;
         }
@@ -263,10 +264,267 @@
                 font-size: 8vw;
             }
         }
+
+        /* --- NEW PORTFOLIO STYLES --- */
+        .hero-section {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .portfolio-section {
+            padding: 100px 10%;
+            position: relative;
+            z-index: 10;
+            background: #050505;
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .section-title {
+            font-size: 3rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 50px;
+            background: linear-gradient(90deg, #fff, #555);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s ease;
+        }
+
+        .section-title.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ABOUT */
+        .about-content {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: #aaaaaa;
+            max-width: 800px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s ease 0.2s;
+        }
+        .about-content.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .highlight {
+            color: #ffffff;
+            font-weight: bold;
+        }
+
+        .credentials-container {
+            margin-top: 40px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        .credential-box {
+            background: rgba(255, 255, 255, 0.02);
+            border-left: 2px solid #ffffff;
+            padding: 20px 25px;
+            border-radius: 0 10px 10px 0;
+            backdrop-filter: blur(10px);
+        }
+        .credential-title {
+            color: #ffffff;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 10px;
+            font-weight: 900;
+        }
+        .credential-detail {
+            color: #aaaaaa;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+        .credential-detail ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        .credential-detail li {
+            margin-bottom: 5px;
+        }
+
+        /* SKILLS */
+        .skills-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .skill-pill {
+            padding: 15px 30px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50px;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            backdrop-filter: blur(10px);
+            opacity: 0;
+            transform: scale(0.9);
+            transition: all 0.5s ease;
+        }
+        .skill-pill:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-5px) scale(1);
+        }
+        .skills-grid.visible .skill-pill {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* PROJECTS */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        .project-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 40px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at top left, rgba(255,255,255,0.05), transparent 70%);
+        }
+        .project-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.04);
+        }
+        .projects-grid.visible .project-card {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .project-title {
+            font-size: 1.8rem;
+            font-weight: 900;
+            margin-bottom: 15px;
+            color: #fff;
+            position: relative;
+            z-index: 2;
+        }
+        .project-desc {
+            color: #888;
+            line-height: 1.6;
+            font-size: 1rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .show-more-link {
+            display: inline-block;
+            margin-top: 40px;
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        .show-more-link.visible {
+            opacity: 1;
+            transform: translateY(0);
+            transition: all 1s ease 0.6s; /* Delayed fade in after cards */
+        }
+        .show-more-link:hover {
+            border-bottom: 2px solid #ffffff;
+            color: #cccccc;
+        }
+
+        /* CONTACT */
+        .contact-form {
+            max-width: 600px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s ease 0.2s;
+        }
+        .contact-form.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .contact-input {
+            width: 100%;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            border-radius: 10px;
+            outline: none;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+        }
+        .contact-input:focus {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+        textarea.contact-input {
+            min-height: 150px;
+            resize: vertical;
+        }
+        .contact-btn {
+            padding: 20px;
+            background: #ffffff;
+            color: #000000;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .contact-btn:hover {
+            background: #cccccc;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .section-title { font-size: 2rem; }
+            .portfolio-section { padding: 60px 5%; }
+        }
     </style>
 </head>
 
 <body>
+    <div class="hero-section">
 
     <!-- Ensure you put close.png and open.png in the same directory -->
     <div id="close-img" class="bg-image"></div>
@@ -308,7 +566,126 @@
         </div>
     </div>
 
-    <script>
+        </div>
+
+    <!-- PORTFOLIO SECTIONS -->
+    <section class="portfolio-section" id="about">
+        <h2 class="section-title reveal">About Me</h2>
+        <div class="about-content reveal">
+            I'm <span class="highlight">Ashen Gunaratne</span>, Founder and CEO of <span class="highlight">Durowave (Pvt) Ltd</span>, a Sri Lankan research, development, and technology studio.<br><br>
+            Operating on a philosophy of "fearless innovation," I lead teams to solve real-world problems through advanced technology. My work spans across Software Development, Artificial Intelligence, Robotics, and Creative Media. From building enterprise ERP solutions to developing Sri Lanka's first commercial FPV drone series, I am driven by a passion for pushing boundaries and shaping the future.
+            
+            <div class="credentials-container">
+                <div class="credential-box">
+                    <div class="credential-title">Education</div>
+                    <div class="credential-detail">
+                        <span class="highlight">BSc Honors in Business Information Systems</span><br>
+                        University of Sri Jayewardenepura
+                    </div>
+                </div>
+                <div class="credential-box">
+                    <div class="credential-title">Leadership</div>
+                    <div class="credential-detail">
+                        <ul>
+                            <li><span class="highlight">Chairman</span>, Durowave (Pvt) Ltd</li>
+                            <li><span class="highlight">Chairman</span>, Hoopthelabel (Pvt) Ltd</li>
+                            <li><span class="highlight">Co-Founder</span>, Durokey</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="portfolio-section" id="skills">
+        <h2 class="section-title reveal">Core Arsenal</h2>
+        <div class="skills-grid reveal">
+            <div class="skill-pill" style="transition-delay: 0.1s">Software Architecture</div>
+            <div class="skill-pill" style="transition-delay: 0.2s">Artificial Intelligence</div>
+            <div class="skill-pill" style="transition-delay: 0.3s">Robotics & FPV Drones</div>
+            <div class="skill-pill" style="transition-delay: 0.4s">Enterprise ERP Systems</div>
+            <div class="skill-pill" style="transition-delay: 0.5s">Creative Media & VFX</div>
+            <div class="skill-pill" style="transition-delay: 0.6s">Cybersecurity</div>
+            <div class="skill-pill" style="transition-delay: 0.7s">Tech Entrepreneurship</div>
+        </div>
+    </section>
+
+    <section class="portfolio-section" id="projects">
+        <h2 class="section-title reveal">Durowave Projects</h2>
+        <div class="projects-grid reveal">
+            <div class="project-card" style="transition-delay: 0.1s">
+                <div class="project-title">Durokey</div>
+                <div class="project-desc">A comprehensive business and tax management platform designed to streamline enterprise operations and financial compliance seamlessly.</div>
+            </div>
+            <div class="project-card" style="transition-delay: 0.3s">
+                <div class="project-title">Durowave DASH</div>
+                <div class="project-desc">Sri Lanka's very first commercial FPV (First Person View) drone series, engineered from the ground up for high-speed precision and advanced aerial capabilities.</div>
+            </div>
+            <div class="project-card" style="transition-delay: 0.5s">
+                <div class="project-title">Medtalks.lk</div>
+                <div class="project-desc">A highly impactful health-tech platform bringing modern digital solutions to the healthcare sector, facilitating better communication and data management.</div>
+            </div>
+        </div>
+        <div style="text-align: center;">
+            <a href="https://durowave.co" target="_blank" rel="noopener noreferrer" class="show-more-link reveal">Show More <i class="fa-solid fa-arrow-right" style="margin-left: 8px;"></i></a>
+        </div>
+    </section>
+
+    <section class="portfolio-section" id="contact">
+        <h2 class="section-title reveal">Connect</h2>
+        <form class="contact-form reveal" onsubmit="handleFormSubmit(event)">
+            <input type="text" class="contact-input" placeholder="Your Name" required>
+            <input type="email" class="contact-input" placeholder="Your Email" required>
+            <textarea class="contact-input" placeholder="How can we build the future together?" required></textarea>
+            <button type="submit" class="contact-btn">Send Transmission</button>
+        </form>
+    </section>
+
+<script>
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            const form = event.target;
+            form.style.opacity = '0';
+            form.style.transform = 'scale(0.95)';
+            
+            setTimeout(() => {
+                form.innerHTML = `
+                    <div style="text-align: center; padding: 40px 20px;">
+                        <i class="fa-solid fa-circle-check" style="font-size: 3rem; margin-bottom: 20px; color: #ffffff;"></i>
+                        <h3 style="margin: 0; font-size: 1.5rem; text-transform: uppercase; letter-spacing: 0.1em;">Transmission Sent</h3>
+                        <p style="color: #888; margin-top: 15px; font-size: 1rem; line-height: 1.5;">Thank you for reaching out. I'll be in touch shortly.</p>
+                    </div>
+                `;
+                form.style.opacity = '1';
+                form.style.transform = 'scale(1)';
+            }, 300); // Wait for fade out
+        }
+
+        // Scroll Reveal Animation Logic
+        document.addEventListener('DOMContentLoaded', () => {
+            const reveals = document.querySelectorAll('.reveal');
+            
+            const revealOptions = {
+                threshold: 0.15,
+                rootMargin: "0px 0px -50px 0px"
+            };
+
+            const revealOnScroll = new IntersectionObserver(function(entries, observer) {
+                entries.forEach(entry => {
+                    if (!entry.isIntersecting) {
+                        return;
+                    } else {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, revealOptions);
+
+            reveals.forEach(reveal => {
+                revealOnScroll.observe(reveal);
+            });
+        });
+
         const video = document.getElementById('beam-video');
         const phrases = [
             "Hey I'm Ashen Gunaratne.",
@@ -347,6 +724,13 @@
                     setTimeout(() => {
                         document.getElementById('black-overlay').classList.add('show');
                         socialLinks.classList.add('show');
+
+                        // Unlock scrolling and auto-scroll to the About section after 1 second
+                        setTimeout(() => {
+                            document.body.style.overflowY = 'auto';
+                            document.documentElement.style.overflowY = 'auto';
+                            document.getElementById('about').scrollIntoView({ behavior: 'smooth' });
+                        }, 1000);
                     }, 500);
                     return; // End the loop
                 } else {
