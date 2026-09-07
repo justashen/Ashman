@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex">
+    <meta property="og:image" content="close.png">
+    <link rel="icon" href="favicon.ico?v=2" type="image/x-icon">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Ashen Gunaratne</title>
+    <style>
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: #050505;
+            font-family: 'Impact', 'Arial Black', sans-serif;
+        }
+
+        .bg-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            transition: opacity 1s ease-in-out;
+        }
+
+        #close-img {
+            background-image: url('close.png');
+            opacity: 1;
+            z-index: 1;
+        }
+
+        #open-img {
+            background-image: url('open.jpg');
+            opacity: 0;
+            z-index: 2;
+        }
+
+        #beam-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            mix-blend-mode: exclusion;
+            z-index: 3;
+            pointer-events: none;
+            opacity: 0;
+            transform: scale(1.5);
+            transition: opacity 1s ease-in-out, transform 1.5s cubic-bezier(0.2, 1, 0.3, 1);
+        }
+
+        .text-container {
+            position: absolute;
+            top: 50%;
+            left: 100%;
+            transform: translate(0, -50%);
+            color: #ffffff;
+            font-size: 15vw;
+            font-weight: 300;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            text-transform: uppercase;
+            white-space: nowrap;
+            letter-spacing: 0.3em;
+            z-index: 4;
+            /* Above the video */
+            pointer-events: none;
+        }
+
+        /* Classes triggered after 1 second */
+        .start-animation #close-img {
+            opacity: 0;
+        }
+
+        .start-animation #open-img {
+            opacity: 1;
+        }
+
+        .start-animation #beam-video {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .start-animation .text-container {
+            /* Longer, more elegant duration for a luxury feel */
+            animation: slideText 2s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+        }
+
+        @keyframes slideText {
+            0% {
+                left: 100%;
+                transform: translate(0, -50%);
+            }
+
+            100% {
+                left: 0%;
+                transform: translate(-100%, -50%);
+            }
+        }
+
+        .intro-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 5;
+            text-align: center;
+            color: #ffffff;
+            width: 80%;
+        }
+
+        #typewriter-text {
+            font-size: 2.5vw;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-weight: 300;
+            letter-spacing: 0.1em;
+            min-height: 4vw;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 2px;
+            background-color: #ffffff;
+            animation: blink 1s step-end infinite;
+            margin-left: 5px;
+            vertical-align: text-bottom;
+        }
+
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+
+        #black-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.2) 100%);
+            z-index: 4;
+            opacity: 0;
+            transition: opacity 1.5s ease;
+            pointer-events: none;
+        }
+
+        #black-overlay.show {
+            opacity: 1;
+        }
+
+        .social-links {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            pointer-events: none;
+            z-index: 6;
+        }
+
+        .social-links.show {
+            pointer-events: auto;
+        }
+
+        .social-link {
+            color: #ffffff;
+            text-decoration: none;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 1.2vw;
+            font-weight: 300;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            border-bottom: 1px solid transparent;
+            padding-bottom: 5px;
+            opacity: 0;
+            transform: translateY(40px);
+            transition: transform 0.8s cubic-bezier(0.2, 1, 0.3, 1), opacity 0.8s ease, border-bottom 0.3s ease, color 0.3s ease;
+        }
+
+        .social-links.show .social-link {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Staggered animation */
+        .social-links.show .social-link:nth-child(1) { transition-delay: 0.1s, 0.1s, 0s, 0s; }
+        .social-links.show .social-link:nth-child(2) { transition-delay: 0.3s, 0.3s, 0s, 0s; }
+        .social-links.show .social-link:nth-child(3) { transition-delay: 0.5s, 0.5s, 0s, 0s; }
+
+        .social-link:hover {
+            color: #cccccc;
+            border-bottom: 1px solid #cccccc;
+        }
+
+        .link-icon {
+            display: none;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .text-container {
+                font-size: 16vw;
+            }
+
+            .intro-container {
+                width: 90%;
+            }
+
+            #typewriter-text {
+                font-size: 5vw;
+                min-height: 12vw;
+                letter-spacing: 0.05em;
+            }
+
+            .social-links {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                gap: 40px;
+                margin-top: 20px;
+            }
+
+            .social-link {
+                margin: 0;
+                border-bottom: none;
+            }
+
+            .social-link:hover {
+                border-bottom: none;
+            }
+
+            .link-text {
+                display: none;
+            }
+
+            .link-icon {
+                display: inline-block;
+                font-size: 8vw;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Ensure you put close.png and open.png in the same directory -->
+    <div id="close-img" class="bg-image"></div>
+    <div id="open-img" class="bg-image"></div>
+    <video id="beam-video" src="beam_video.mp4" loop muted playsinline></video>
+
+    <div class="text-container">ASHEN GUNARATNE</div>
+
+    <div id="black-overlay"></div>
+    <div class="intro-container">
+        <div id="typewriter-text"></div>
+        <div class="social-links">
+            <a href="https://www.linkedin.com/in/ashengunaratne/" class="social-link" target="_blank" rel="noopener noreferrer">
+                <i class="fa-brands fa-linkedin-in link-icon"></i><span class="link-text">LinkedIn</span>
+            </a>
+            <a href="https://www.facebook.com/ashenudithagunaratne" class="social-link" target="_blank" rel="noopener noreferrer">
+                <i class="fa-brands fa-facebook-f link-icon"></i><span class="link-text">Facebook</span>
+            </a>
+            <a href="mailto:ashen@durowave.co" class="social-link">
+                <i class="fa-solid fa-envelope link-icon"></i><span class="link-text">Email</span>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        const video = document.getElementById('beam-video');
+        const phrases = [
+            "Hey I'm Ashen Gunaratne.",
+            "CEO of Durowave.",
+            "Wanna connect with me?"
+        ];
+        let phraseIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        const typeContainer = document.getElementById('typewriter-text');
+        const socialLinks = document.querySelector('.social-links');
+
+        function typeWriter() {
+            const currentPhrase = phrases[phraseIndex];
+            
+            if (isDeleting) {
+                // Remove a character
+                typeContainer.innerHTML = currentPhrase.substring(0, charIndex - 1) + '<span class="cursor">&nbsp;</span>';
+                charIndex--;
+            } else {
+                // Add a character
+                typeContainer.innerHTML = currentPhrase.substring(0, charIndex + 1) + '<span class="cursor">&nbsp;</span>';
+                charIndex++;
+            }
+            
+            let typingSpeed = 60; // Normal typing speed
+            
+            if (isDeleting) {
+                typingSpeed /= 2; // Delete faster
+            }
+            
+            if (!isDeleting && charIndex === currentPhrase.length) {
+                // Finished typing a phrase
+                if (phraseIndex === phrases.length - 1) {
+                    // This is the last phrase, don't delete, show links
+                    setTimeout(() => {
+                        document.getElementById('black-overlay').classList.add('show');
+                        socialLinks.classList.add('show');
+                    }, 500);
+                    return; // End the loop
+                } else {
+                    // Pause before deleting
+                    typingSpeed = 1500;
+                    isDeleting = true;
+                }
+            } else if (isDeleting && charIndex === 0) {
+                // Finished deleting, move to next phrase
+                isDeleting = false;
+                phraseIndex++;
+                typingSpeed = 500; // Pause before typing new phrase
+            }
+            
+            setTimeout(typeWriter, typingSpeed);
+        }
+
+        function startAnimation() {
+            // Add a brief 1.5-second delay so we can admire the closed eyes first!
+            setTimeout(() => {
+                document.body.classList.add('start-animation');
+                video.play();
+
+                // Wait 2.5 seconds for the big text to slide away before typing
+                setTimeout(typeWriter, 2500);
+            }, 1500);
+        }
+
+        // Wait until the video is loaded and ready to play smoothly
+        if (video.readyState >= 3) { // HAVE_FUTURE_DATA
+            startAnimation();
+        } else {
+            video.addEventListener('canplaythrough', startAnimation, { once: true });
+        }
+    </script>
+</body>
+
+</html>
